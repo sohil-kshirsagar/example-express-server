@@ -116,7 +116,6 @@ const main = async () => {
   await new Promise(resolve => setTimeout(resolve, 4000));
   console.log('TuskDrift initialized');
   
-  
   // Start server
   app.listen(PORT, () => {
     // Mark app as ready after server is listening
