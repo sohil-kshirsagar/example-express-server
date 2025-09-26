@@ -1,4 +1,5 @@
 service:
+    id: 710bf707-1ba1-47f1-81ae-a3fb3d9a7424
     name: example-express-server
     port: 3000
     start:
@@ -7,12 +8,16 @@ service:
         command: curl -fsS http://localhost:3000/health
         timeout: 30s
         interval: 1s
+
 test_execution:
     timeout: 30s
+
 recording:
-    sampling_rate: 0.1
+    sampling_rate: 1
     exclude_paths:
         - /health
         - /metrics
+    export_spans: true
+
 tusk_api:
-    url: https://api.tusk.dev
+    url: http://localhost:8000

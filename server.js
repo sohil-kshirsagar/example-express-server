@@ -1,5 +1,10 @@
-const { tdSdk } = require('/Users/sohil/projects/tusk-drift-sdk/dist/index.cjs');
-const initPromise = tdSdk.initialize({});
+const { tdSdk } = require("@use-tusk/drift-sdk");
+
+tdSdk.initialize({
+  apiKey: "tusk-9b03ffcacb285a6e3ca4ba8e883ba4ce",
+  env: "local",
+  logLevel: "debug",
+});
 
 // Note: If we have app.get stuff before we await TuskDrift, it fails to start
 
@@ -104,19 +109,28 @@ app.get('/api/weather-activity', async (req, res) => {
   }
 });
 
+// 4. Example post endpoint
+app.post('/api/create-post', async (req, res) => {
+  const postTitle = req.body?.title;
+  const postBody = req.body?.body;
+  const response = await axios.post('https://jsonplaceholder.typicode.com/posts', { title: postTitle, body: postBody });
+
+  const readableId = `${response.data.id}-${response.data.title?.toLowerCase().replace(/ /g, '-')}`;
+  res.json({
+    id: response.data.id,
+    readableId: readableId,
+    title: response.data.title,
+    body: response.data.body
+  });
+});
+
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.json({ status: 'healthy' });
 });
 
 
-const main = async () => {
-  // Initialize TuskDrift with proper configuration
-  await initPromise;
-  await new Promise(resolve => setTimeout(resolve, 4000));
-  console.log('TuskDrift initialized');
-  
-  
+const main = async () => {  
   // Start server
   app.listen(PORT, () => {
     // Mark app as ready after server is listening
@@ -126,6 +140,7 @@ const main = async () => {
     console.log('  GET /api/status           - Returns server status JSON');
     console.log('  GET /api/random-user      - Fetches random user from external API');
     console.log('  GET /api/weather-activity - Multiple API calls with business logic');
+    console.log('  POST /api/create-post     - Creates a post with JSONPlaceholder');
     console.log('  GET /health               - Health check endpoint');
   });
 };
