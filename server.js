@@ -65,7 +65,7 @@ app.get('/api/weather-activity', async (req, res) => {
 
     // Business logic: Recommend activity based on weather
     let recommendedActivity = 'Stay indoors';
-    if (weather.temperature > 20 && weather.windspeed < 20) {
+    if (weather.temperature > 20 && weather.windspeed < 10) {
       recommendedActivity = isCoastal ? 'Beach day!' : 'Perfect for hiking!';
     } else if (weather.temperature < 10) {
       recommendedActivity = 'Hot chocolate weather';
@@ -115,12 +115,15 @@ app.post('/api/create-post', async (req, res) => {
   const postBody = req.body?.body;
   const response = await axios.post('https://jsonplaceholder.typicode.com/posts', { title: postTitle, body: postBody });
 
+  const existingPost = await axios.get('https://jsonplaceholder.typicode.com/posts/1');
+
   const readableId = `${response.data.id}-${response.data.title?.toLowerCase().replace(/ /g, '-')}`;
   res.json({
     id: response.data.id,
     readableId: readableId,
     title: response.data.title,
-    body: response.data.body
+    body: response.data.body,
+    existingPost,
   });
 });
 
