@@ -1,6 +1,6 @@
-const { tdSdk } = require("@use-tusk/drift-sdk");
+const { TuskDrift } = require("@use-tusk/drift-node-sdk");
 
-tdSdk.initialize({
+TuskDrift.initialize({
   apiKey: "tusk-9b03ffcacb285a6e3ca4ba8e883ba4ce",
   env: "local",
   logLevel: "debug",
@@ -134,7 +134,7 @@ const main = async () => {
   // Start server
   app.listen(PORT, () => {
     // Mark app as ready after server is listening
-    tdSdk.markAppAsReady();
+    TuskDrift.markAppAsReady();
     console.log(`Server running on http://localhost:${PORT}`);
     console.log('\nAvailable endpoints:');
     console.log('  GET /api/status           - Returns server status JSON');
