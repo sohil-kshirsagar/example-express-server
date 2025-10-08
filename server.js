@@ -64,8 +64,10 @@ app.get('/api/weather-activity', async (req, res) => {
     const weather = weatherResponse.data.current_weather;
 
     // Business logic: Recommend activity based on weather
-    let recommendedActivity = 'Stay indoors';
-    if (weather.temperature > 20 && weather.windspeed < 20) {
+    let recommendedActivity = 'Play a board game';
+    if (weather.temperature > 40) {
+      recommendedActivity = 'Too hot - stay indoors';
+    } else if (weather.temperature > 20 && weather.windspeed < 20) {
       recommendedActivity = isCoastal ? 'Beach day!' : 'Perfect for hiking!';
     } else if (weather.temperature < 10) {
       recommendedActivity = 'Hot chocolate weather';
