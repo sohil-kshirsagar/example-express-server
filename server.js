@@ -16,7 +16,7 @@ const PORT = 3000;
 
 app.use(express.json());
 
-// 1. Endpoint that returns JSON
+// 1. GET /api/status - Endpoint that returns JSON
 app.get('/api/status', (req, res) => {
   res.json({
     status: 'ok',
@@ -27,7 +27,7 @@ app.get('/api/status', (req, res) => {
   });
 });
 
-// 2. Endpoint that makes an external request
+// 2. GET /api/random-user - Endpoint that makes an external request
 app.get('/api/random-user', async (req, res) => {
   try {
     const response = await axios.get('https://randomuser.me/api/');
@@ -47,7 +47,7 @@ app.get('/api/random-user', async (req, res) => {
   }
 });
 
-// 3. Endpoint with business logic and multiple API calls
+// 3. GET /api/weather-activity - Endpoint with business logic and multiple API calls
 app.get('/api/weather-activity', async (req, res) => {
   try {
     // First API call: Get user's location from IP
@@ -111,7 +111,27 @@ app.get('/api/weather-activity', async (req, res) => {
   }
 });
 
-// 4. Example post endpoint
+// 4. GET /api/post/:id - Get post with comments
+app.get('/api/post/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Fetch post and comments in parallel
+    const [postResponse, commentsResponse] = await Promise.all([
+      axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`),
+      axios.get(`https://jsonplaceholder.typicode.com/posts/${id}/comments`)
+    ]);
+
+    res.json({
+      post: postResponse.data,
+      comments: commentsResponse.data
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch post data' });
+  }
+});
+
+// 5. POST /api/create-post - Create a post
 app.post('/api/create-post', async (req, res) => {
   const postTitle = req.body?.title;
   const postBody = req.body?.body;
