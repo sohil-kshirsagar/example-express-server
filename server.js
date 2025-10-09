@@ -117,20 +117,22 @@ app.get('/api/weather-activity', async (req, res) => {
   }
 });
 
+const getPostWithComments = async (id) => {
+  const postResponse = await axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`);
+  return { post: postResponse.data, comments: [] };
+};
+
 // 4. GET /api/post/:id - Get post with comments
 app.get('/api/post/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
     // Fetch post and comments in parallel
-    const [postResponse, commentsResponse] = await Promise.all([
-      axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`),
-      axios.get(`https://jsonplaceholder.typicode.com/posts/${id}/comments`)
-    ]);
+    const { post, comments } = await getPostWithComments(id);
 
     res.json({
-      post: postResponse.data,
-      comments: commentsResponse.data
+      post,
+      comments
     });
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch post data' });
