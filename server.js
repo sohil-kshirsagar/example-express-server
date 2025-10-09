@@ -162,6 +162,7 @@ const main = async () => {
     console.log('  GET /api/status           - Returns server status JSON');
     console.log('  GET /api/random-user      - Fetches random user from external API');
     console.log('  GET /api/weather-activity - Multiple API calls with business logic');
+    console.log('  GET /api/post/:id         - Get post with comments');
     console.log('  POST /api/create-post     - Creates a post with JSONPlaceholder');
     console.log('  GET /health               - Health check endpoint');
   });
