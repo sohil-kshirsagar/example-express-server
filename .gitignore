@@ -4,3 +4,6 @@ node_modules
 tusk
 
 internal
+
+# Tusk Drift
+.tusk/traces
