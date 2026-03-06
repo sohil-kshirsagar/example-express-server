@@ -1,3 +1,4 @@
+const { TuskDrift } = require("./tuskDriftInit");
 const express = require("express");
 const axios = require("axios");
 
@@ -163,6 +164,9 @@ const main = async () => {
       "  POST /api/create-post     - Creates a post with JSONPlaceholder",
     );
     console.log("  GET /health               - Health check endpoint");
+    
+    // Mark app as ready for Tusk Drift
+    TuskDrift.markAppAsReady();
   });
 };
 

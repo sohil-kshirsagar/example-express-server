@@ -7,3 +7,6 @@ internal
 
 # Tusk Drift
 .tusk/traces
+.tusk/results
+.tusk/logs
+.tusk/setup
