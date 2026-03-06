@@ -7,6 +7,8 @@ const PORT = 3000;
 
 app.use(express.json());
 
+// TEST COMMENT
+
 // 1. GET /api/status - Endpoint that returns JSON
 app.get("/api/status", (req, res) => {
   res.json({
@@ -164,7 +166,7 @@ const main = async () => {
       "  POST /api/create-post     - Creates a post with JSONPlaceholder",
     );
     console.log("  GET /health               - Health check endpoint");
-    
+
     // Mark app as ready for Tusk Drift
     TuskDrift.markAppAsReady();
   });
