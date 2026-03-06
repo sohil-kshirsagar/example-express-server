@@ -24,8 +24,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.25"
+
       - name: Run Tusk Drift trace tests
         uses: Use-Tusk/drift-action@v1
         with:
           cache-key: ${{ runner.os }}-tusk-drift-${{ hashFiles('.tusk/config.yaml') }}
           api-key: ${{ secrets.TUSK_API_KEY }}
+          cli-source: source
+          cli-source-ref: sohil/fix/graceful-ci-skip-on-feature-disabled
