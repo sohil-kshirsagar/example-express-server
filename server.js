@@ -7,8 +7,6 @@ const PORT = 3000;
 
 app.use(express.json());
 
-// different comment
-
 // 1. GET /api/status - Endpoint that returns JSON
 app.get("/api/status", (req, res) => {
   res.json({
@@ -119,7 +117,6 @@ app.get("/api/post/:id", async (req, res) => {
 
     res.json({
       post: postResponse.data,
-      comments: commentsResponse.data,
     });
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch post data" });
