@@ -15,6 +15,11 @@ traces:
 test_execution:
   timeout: 30s
 
+tusk_api:
+  url: "https://burro-sweeping-racer.ngrok-free.app"
+  auth0_domain: "tusk-dev.us.auth0.com"
+  auth0_client_id: "L9gLDU0uTEEdSb0CWVA9TURyNgiFYuki"
+
 recording:
   sampling_rate: 0.1
   export_spans: true
