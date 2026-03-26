@@ -1,4 +1,4 @@
-const { TuskDrift } = require("./tuskDriftInit");
+const { TuskDrift } = require("./tuskDriftInit"); // MUST be first
 const express = require("express");
 const axios = require("axios");
 

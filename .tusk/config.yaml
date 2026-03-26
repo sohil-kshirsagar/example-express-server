@@ -21,6 +21,6 @@ tusk_api:
   auth0_client_id: "L9gLDU0uTEEdSb0CWVA9TURyNgiFYuki"
 
 recording:
-  sampling_rate: 0.1
+  sampling_rate: 1
   export_spans: true
   enable_env_var_recording: false
