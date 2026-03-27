@@ -119,7 +119,6 @@ app.get("/api/post/:id", async (req, res) => {
     const postResponse = await axios.get(
       `https://jsonplaceholder.typicode.com/posts/${id}`,
     );
-    // todo - add comments
 
     res.json({
       post: postResponse.data,
