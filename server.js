@@ -5,6 +5,10 @@ const axios = require("axios");
 const app = express();
 const PORT = 3000;
 
+function convertCelsiusToFahrenheit(celsius) {
+  return (celsius * 9) / 5 + 32;
+}
+
 app.use(express.json());
 
 // TEST COMMENT
@@ -55,6 +59,8 @@ app.get("/api/weather-activity", async (req, res) => {
       `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`,
     );
     const weather = weatherResponse.data.current_weather;
+
+    weather.temperature = convertCelsiusToFahrenheit(weather.temperature);
 
     // Business logic: Recommend activity based on weather
     let recommendedActivity = "Play a board game";
@@ -110,16 +116,13 @@ app.get("/api/weather-activity", async (req, res) => {
 app.get("/api/post/:id", async (req, res) => {
   try {
     const { id } = req.params;
-
-    // Fetch post and comments in parallel
-    const [postResponse, commentsResponse] = await Promise.all([
-      axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`),
-      axios.get(`https://jsonplaceholder.typicode.com/posts/${id}/comments`),
-    ]);
+    const postResponse = await axios.get(
+      `https://jsonplaceholder.typicode.com/posts/${id}`,
+    );
 
     res.json({
       post: postResponse.data,
-      comments: commentsResponse.data,
+      comments: [],
     });
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch post data" });
