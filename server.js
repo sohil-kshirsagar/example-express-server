@@ -122,6 +122,7 @@ app.get("/api/post/:id", async (req, res) => {
 
     res.json({
       post: postResponse.data,
+      // todo add this back
       comments: [],
     });
   } catch (error) {
