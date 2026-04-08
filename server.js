@@ -7,7 +7,7 @@ const PORT = 3000;
 
 app.use(express.json());
 
-// TEST COMMENT
+// different comment
 
 // 1. GET /api/status - Endpoint that returns JSON
 app.get("/api/status", (req, res) => {
